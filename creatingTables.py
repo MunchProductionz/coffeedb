@@ -121,7 +121,7 @@ con.commit()
 # con.execute('''INSERT INTO Kaffesmaking VALUES ('Wow – en odyssé for smaksløkene: sitrusskall, melkesjokolade, aprikos!', 10, 'Vinterkaffe 2022', 'Jacobsen & Svart')''')
 
 #Brukerhistorie 2
-con.execute()
+# con.execute()
 
 # Lukker tilkoblingen
 con.close()
