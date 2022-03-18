@@ -93,6 +93,13 @@ delAvParti = '''CREATE TABLE IF NOT EXISTS DelAvParti(
                     FOREIGN KEY (Bønnesort) REFERENCES Kaffebønne(Sort)
                 )'''
 
+# Definerer DelAVParti-tabellen
+cursor.execute('''CREATE TABLE IF NOT EXISTS DelAVParti(
+                    PartiID INTEGER,
+                    Bønnesort TEXT,
+                    FOREIGN KEY (GårdID) REFERENCES Gård(GårdID),
+                    FOREIGN KEY (Bønnesort) REFERENCES Bønne(Sort))''')
+
 
 # Lager tabeller
 cursor.execute(bruker)
@@ -109,6 +116,12 @@ cursor.execute(delAvParti)          # Fremmed:  Kaffeparti, Kaffebønne
 
 # Commiter endringen
 con.commit()
+
+# Brukerhistorie 1
+# con.execute('''INSERT INTO Kaffesmaking VALUES ('Wow – en odyssé for smaksløkene: sitrusskall, melkesjokolade, aprikos!', 10, 'Vinterkaffe 2022', 'Jacobsen & Svart')''')
+
+#Brukerhistorie 2
+con.execute()
 
 # Lukker tilkoblingen
 con.close()
