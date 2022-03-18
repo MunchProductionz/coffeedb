@@ -1,4 +1,6 @@
 import sqlite3
+from functions import insert
+from functions import select
 
 # Kobler til databasen
 con = sqlite3.connect("test.db")

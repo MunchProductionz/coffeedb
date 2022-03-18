@@ -22,7 +22,7 @@ print(insert('Kaffesmaking', ('Wow – en odyssé for smaksløkene: sitrusskall,
 
 print()
 
-def select(attributes, table, condition):
+def select(attributes, table, condition=None):
     if (attributes == '*'):
         return '"SELECT * FROM ' + table + ' WHERE ' + condition + '"'
 
@@ -32,6 +32,9 @@ def select(attributes, table, condition):
         stringAttributes += str(attribute) + ', '
     
     stringAttributes = stringAttributes[:-2]
+
+    if condition == None:
+        return '"SELECT ' + stringAttributes + ' FROM ' + table + '"'
 
     return '"SELECT ' + stringAttributes + ' FROM ' + table + ' WHERE ' + condition + '"'
 
