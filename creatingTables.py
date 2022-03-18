@@ -7,95 +7,104 @@ con = sqlite3.connect("test.db")
 cursor = con.cursor()
 
 # Definerer Bruker-tabellen
-bruker = '''CREATE TABLE Bruker(
+bruker = '''CREATE TABLE IF NOT EXISTS Bruker(
                     BrukerID INTEGER PRIMARY KEY,
-                    Epostadresse TEXT,
-                    Passord TEXT,
-                    Fulltnavn TEXT,
-                    FOREIGN KEY (KaffesmakingID) REFERENCES Kaffesmaking(KaffesmakingID)
+                    Epostadresse TEXT UNIQUE,
+                    Passord TEXT NOT NULL,
+                    Fulltnavn TEXT NOT NULL
                 )'''
 
-# Definerer Kaffesmaking-tabellen
-kaffesmaking = '''CREATE TABLE Kaffesmaking(
-                    KaffesmakingID INTEGER PRIMARY KEY,
-                    Smaksnotater TEXT,
-                    AntallPoeng INTEGER,
-                    Smaksdato TEXT,
-                    FOREIGN KEY (BrukerID) REFERENCES Bruker(BrukerID)
-                )'''
-
-# Definerer Kaffe-tabellen
-kaffe = '''CREATE TABLE Kaffe(
-                    KaffeID INTEGER PRIMARY KEY,
-                    Brenningsgrad TEXT,
-                    Brenningsdato TEXT,
-                    Navn TEXT,
-                    Beskrivelse TEXT,
-                    Kilopris INTEGER,
-                    FOREIGN KEY (KaffepartiID) REFERENCES Kaffeparti(KaffepartiID)
-                )'''
-
-# Definerer Kaffeparti-tabellen
-kaffeparti = '''CREATE TABLE Kaffeparti(
-                    KaffepartiID INTEGER PRIMARY KEY,
-                    KiloprisGård INTEGER,
-                    FOREIGN KEY (GårdID) REFERENCES Gård(GårdID),
-                    FOREIGN KEY (ForedlingsmetodeID) REFERENCES Foredlingsmetode(ForedlingsmetodeID)
-                )'''
-
-# Definerer Foredlingsmetode-tabellen
-foredlingsmetode = '''CREATE TABLE Foredlingsmetode(
-                    ForedlingsmetodeID INTEGER PRIMARY KEY,
-                    Navn TEXT,
-                    Beskrivelse TEXT
-                )'''
-
-# Definerer Kaffebønne-tabellen
-kaffebønne = '''CREATE TABLE Kaffebønne(
-                    KaffebønneID INTEGER PRIMARY KEY,
-                    Art TEXT,
-                    Grense INTEGER
+# Definerer Brenneri-tabellen
+brenneri = '''CREATE TABLE IF NOT EXISTS Brenneri(
+                    Navn TEXT PRIMARY KEY,
+                    Sted TEXT
                 )'''
 
 # Definerer Gård-tabellen
-gård = '''CREATE TABLE Gård(
+gård = '''CREATE TABLE IF NOT EXISTS Gård(
                     GårdID INTEGER PRIMARY KEY,
-                    Land TEXT,
-                    Region TEXT,
-                    HøydeOverHavet TEXT
+                    Høyde TEXT,
+                    Region TEXT NOT NULL,
+                    Land TEXT NOT NULL
                 )'''
 
-# Definerer LagesAv-tabellen
-lagesAv = '''CREATE TABLE LagesAv(
-                    FOREIGN KEY (KaffeID) REFERENCES Kaffe(KaffeID),
-                    FOREIGN KEY (KaffepartiID) REFERENCES Kaffeparti(KaffepartiID)
+# Definerer Kaffebønne-tabellen
+kaffebønne = '''CREATE TABLE IF NOT EXISTS Kaffebønne(
+                    Sort TEXT PRIMARY KEY,
+                    Art TEXT NOT NULL
                 )'''
 
-# Definerer Produksjon-tabellen
-produksjon = '''CREATE TABLE Produksjon(
-                    FOREIGN KEY (KaffepartiID) REFERENCES Kaffeparti(KaffepartiID),
-                    FOREIGN KEY (KaffebønneID) REFERENCES Kaffebønne(KaffebønneID),
-                    FOREIGN KEY (ForedlingsmetodeID) REFERENCES Foredlingsmetode(ForedlingsmetodeID)
+# Definerer Foredlingsmetode-tabellen
+foredlingsmetode = '''CREATE TABLE IF NOT EXISTS Foredlingsmetode(
+                    Navn TEXT PRIMARY KEY,
+                    Beskrivelse TEXT
+                )'''
+
+# Definerer Kaffeparti-tabellen
+kaffeparti = '''CREATE TABLE IF NOT EXISTS Kaffeparti(
+                    PartiID INTEGER PRIMARY KEY,
+                    KiloprisUSD INTEGER,
+                    Foredlingsmetode TEXT NOT NULL,
+                    GårdID INTEGER NOT NULL,
+                    FOREIGN KEY (Foredlingsmetode) REFERENCES Foredlingsmetode(Navn),
+                    FOREIGN KEY (GårdID) REFERENCES Gård(GårdID)
+                )'''
+
+# Definerer Kaffe-tabellen
+kaffe = '''CREATE TABLE IF NOT EXISTS Kaffe(
+                    Brennerinavn TEXT PRIMARY KEY,
+                    Navn TEXT,
+                    Brenningsgrad TEXT NOT NULL,
+                    Brenningsdato TEXT NOT NULL,
+                    Beskrivelse TEXT,
+                    KiloprisNOK INTEGER,
+                    PartiID INTEGER NOT NULL,
+                    FOREIGN KEY (Brennerinavn) REFERENCES Brenneri(Navn)
+                    FOREIGN KEY (PartiID) REFERENCES Kaffeparti(PartiID)
+                )'''
+
+# Definerer Kaffesmaking-tabellen
+kaffesmaking = '''CREATE TABLE IF NOT EXISTS Kaffesmaking(
+                    KaffesmakingID INTEGER PRIMARY KEY,
+                    Smaksnotat TEXT,
+                    Poeng INTEGER NOT NULL,
+                    Dato TEXT,
+                    BrukerID INTEGER,
+                    Kaffenavn TEXT,
+                    Brennerinavn TEXT,
+                    FOREIGN KEY (BrukerID) REFERENCES Bruker(BrukerID),
+                    FOREIGN KEY (Kaffenavn) REFERENCES Kaffe(Navn),
+                    FOREIGN KEY (Brennerinavn) REFERENCES Brenneri(Brennerinavn)
                 )'''
 
 # Definerer DyrkesAv-tabellen
-dyrkesAv = '''CREATE TABLE DyrkesAv(
+dyrkesAv = '''CREATE TABLE IF NOT EXISTS DyrkesAv(
+                    GårdID INTEGER,
+                    Bønnesort TEXT,
                     FOREIGN KEY (GårdID) REFERENCES Gård(GårdID),
-                    FOREIGN KEY (KaffebønneID) REFERENCES Kaffebønne(KaffebønneID)
+                    FOREIGN KEY (Bønnesort) REFERENCES Kaffebønne(Sort)
+                )'''
+
+# Definerer DelAvParti-tabellen
+delAvParti = '''CREATE TABLE IF NOT EXISTS DelAvParti(
+                    PartiID INTEGER,
+                    Bønnesort TEXT,
+                    FOREIGN KEY (PartiID) REFERENCES Kaffeparti(PartiID),
+                    FOREIGN KEY (Bønnesort) REFERENCES Kaffebønne(Sort)
                 )'''
 
 
 # Lager tabeller
-cursor.execute(bruker)              # Fremmed:  KaffesmakingID
-cursor.execute(kaffesmaking)        # Fremmed:  BrukerID
-cursor.execute(kaffe)               # Fremmed:  KaffepartiID
-cursor.execute(kaffeparti)          # Fremmed:  GårdID, ForedlingsmetodeID
-cursor.execute(foredlingsmetode)  
-cursor.execute(kaffebønne)
+cursor.execute(bruker)
+cursor.execute(brenneri)
 cursor.execute(gård)
-cursor.execute(lagesAv)             # Fremmed:  KaffeID, KaffepartiID
-cursor.execute(produksjon)          # Fremmed:  KaffepartiID, KaffebønneID, ForedlingsmetodeID
-cursor.execute(dyrkesAv)            # Fremmed:  GårdID, KaffebønneID
+cursor.execute(kaffebønne)
+cursor.execute(foredlingsmetode)
+cursor.execute(kaffeparti)          # Fremmed:  Foredlingsmetode, Gård
+cursor.execute(kaffe)               # Fremmed:  Brenneri, Kaffeparti
+cursor.execute(kaffesmaking)        # Fremmed:  Bruker, Kaffe, Brenneri
+cursor.execute(dyrkesAv)            # Fremmed:  Gård, Kaffebønne
+cursor.execute(delAvParti)          # Fremmed:  Kaffeparti, Kaffebønne  
 
 
 # Commiter endringen
