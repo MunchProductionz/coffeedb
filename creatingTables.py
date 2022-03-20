@@ -1,6 +1,4 @@
 import sqlite3
-from functions import insert
-from functions import select
 
 # Kobler til databasen
 con = sqlite3.connect("test.db")
@@ -95,13 +93,6 @@ delAvParti = '''CREATE TABLE IF NOT EXISTS DelAvParti(
                     FOREIGN KEY (Bønnesort) REFERENCES Kaffebønne(Sort)
                 )'''
 
-# Definerer DelAVParti-tabellen
-cursor.execute('''CREATE TABLE IF NOT EXISTS DelAVParti(
-                    PartiID INTEGER,
-                    Bønnesort TEXT,
-                    FOREIGN KEY (GårdID) REFERENCES Gård(GårdID),
-                    FOREIGN KEY (Bønnesort) REFERENCES Bønne(Sort))''')
-
 
 # Lager tabeller
 cursor.execute(bruker)
@@ -120,7 +111,14 @@ cursor.execute(delAvParti)          # Fremmed:  Kaffeparti, Kaffebønne
 con.commit()
 
 # Brukerhistorie 1
-# con.execute('''INSERT INTO Kaffesmaking VALUES ('Wow – en odyssé for smaksløkene: sitrusskall, melkesjokolade, aprikos!', 10, 'Vinterkaffe 2022', 'Jacobsen & Svart')''')
+# cursor.execute('''INSERT INTO Kaffesmaking VALUES ('Wow – en odyssé for smaksløkene: sitrusskall, melkesjokolade, aprikos!', 10, 'Vinterkaffe 2022', 'Jacobsen & Svart')''')
+con.commit()
+
+# !! Se "insertingValues.py" for innsetting av verdier i tabeller !!
+
+
+# cursor.execute("SELECT * FROM Bruker WHERE BrukerID=2")
+# print(cursor.fetchall())
 
 #Brukerhistorie 2
 # con.execute()
