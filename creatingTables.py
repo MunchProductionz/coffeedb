@@ -113,7 +113,7 @@ con.commit()
 
 # Brukerhistorie 1
 # cursor.execute('''INSERT INTO Kaffesmaking VALUES ('Wow – en odyssé for smaksløkene: sitrusskall, melkesjokolade, aprikos!', 10, 'Vinterkaffe 2022', 'Jacobsen & Svart')''')
-con.commit()
+# con.commit()
 
 # !! Se "insertingValues.py" for innsetting av verdier i tabeller !!
 
@@ -121,7 +121,7 @@ con.commit()
 # cursor.execute("SELECT * FROM Bruker WHERE BrukerID=2")
 # print(cursor.fetchall())
 
-#Brukerhistorie 2
+# Brukerhistorie 2
 # con.execute()
 
 # Lukker tilkoblingen

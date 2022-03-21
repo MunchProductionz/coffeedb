@@ -1,15 +1,137 @@
 import sqlite3
+from userStories3 import unwashed
+from userStories4 import search
 
-# Kobler til databasen
-con = sqlite3.connect("test.db")
+from users import insertUser, isCorrectNameAndPassword, mailExists
 
-# Oppretter markør - Du bruker den til å kjøre queries
-cursor = con.cursor()
+def run():
+    
+    # Initialiserer variabler
+    navn = ''
+    passord = ''
+    historie = ' '
+
+    # Henter epostadresse
+    print('Velkommen til coffeeDB.')
+    epostadresse = input('Vennligst skriv inn epostadressen din: ')
+    
+    print()
+
+    # Sjekker om mailen/brukeren eksisterer i databasen
+    if (mailExists(epostadresse)):
+        
+        print('Vennligst logg inn.')
+        navn = input('Navn: ')
+        passord = input('Passord: ')
+
+        print()
+
+        # "Logger inn" på bruker
+        while (not isCorrectNameAndPassword(epostadresse, navn, passord)):
+            print('Navnet eller passordet du har oppgitt er feil.')
+            print('Vennligst prøv igjen.')
+            print('La navn og passord stå tomme for å gå tilbake.')
+
+            print()
+
+            navn = input('Navn: ')
+            passord = input('Passord: ')
+
+            print()
+
+            # Kaller run() dersom bruker trykker Enter 2 ganger
+            if (navn == '' and passord == ''):
+                run()
+
+    # Hvis bruker ikke allerede eksisterer, registrer bruker        
+    else:
+
+        print('Du ser ut til å være en ny bruker i databasen.')
+        print('Vennligst registrer navn og passord for brukeren.')
+
+        print()
+
+        navn = input('Navn: ')
+        passord = input('Passord: ')
+
+        print()
+
+        while (navn == '' and passord == ''):
+            print('Navn eller passord kan ikke være en tom streng.')
+            print('Vennligst prøv igjen.')
+
+            print()
+
+            navn = input('Navn: ')
+            passord = input('Passord: ')
+
+            print()
+        
+        insertUser(epostadresse, navn, passord)
+
+    # Bruker velger ønsket historie, avsluttes ved å inputte tom streng
+    while (historie != ''):
+
+        print('Alternativer:')
+        print('> 1 - Input Brukerhistorie 1')
+        print('> 2 - Rangering: Brukere')
+        print('> 3 - Rangering: Kaffer')
+        print('> 4 - Søk')
+        print('> 5 - Søk')
+    
+        print()
+        print('La valg av alternativ stå tomt for å avslutte.')
+        print()
+
+        historie = input('Vennligst velg et av alternativene fra menyen (1-5) over: ')
+
+        print()
+
+        if (not isValidStory(historie)):
+            print('Ikke et gyldig alternativ')
+            print('Vennligst prøv igjen.')
+            print()
+        
+        elif (historie == ''):
+            return None
+        else:
+            runStory(historie, epostadresse, navn, passord)
+            print()
+            input('Trykk enter for å velge nytt alternativ.')
+            print()
+            
 
 
-# Spørringer
-cursor.execute("SELECT * FROM Kaffesmaking")
-print(cursor.fetchall())
+
+# Hjelpemetode - Kjører riktig brukerhistorie
+def runStory(historie, epostadresse, navn, passord):
+    if (historie == '1'):
+        return None
+    elif (historie == '2'):
+        return None
+    elif (historie == '3'):
+        return None
+    elif (historie == '4'):
+        word = input('Skriv ordet du ønsker å søke på: ')
+        search(word)
+    elif (historie == '5'):
+        unwashed()
+
+# Hjelpemetode - Validerer historie
+def isValidStory(historie):
+
+    if (historie == ''):
+        return True
+
+    for i in range(5):
+        h = str(i + 1)
+        if (historie == h):
+            return True
+    
+    return False
+
+
+
 
 # Brukerhistorie 1
 
