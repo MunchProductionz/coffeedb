@@ -197,7 +197,7 @@ def isValidStory(historie):
 
 
 # Commiter endringen
-con.commit()
+# con.commit()
 
 # Lukker tilkoblingen
-con.close()
+# con.close()
