@@ -23,6 +23,7 @@ brenneri = '''CREATE TABLE IF NOT EXISTS Brenneri(
 # Definerer Gård-tabellen
 gård = '''CREATE TABLE IF NOT EXISTS Gård(
                     GårdID INTEGER PRIMARY KEY,
+                    Navn TEXT,
                     Høyde TEXT,
                     Region TEXT NOT NULL,
                     Land TEXT NOT NULL
