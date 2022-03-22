@@ -3,7 +3,7 @@ import sqlite3
 # Brukerhistorie 5
 def unwashed():
 
-     # Kobler til databasen
+    # Kobler til databasen
     con = sqlite3.connect("test.db")
 
     # Oppretter markør - Du bruker den til å kjøre queries

@@ -19,7 +19,18 @@ con.close()
 #Gjør heller dette:    cursor.execute("SELECT * FROM person WHERE navn = ?", (navn))              
 #Eller dette:          cursor.execute("SELECT * FROM person WHERE navn =:navn", {"navn" = navn}) 
 
+# Query med input fra bruker
+#passord = input()
+#navn = input()
+#cursor.execute("SELECT ? FROM person WHERE navn = ?", (passord, navn))     // Blir: SELECT passord FROM person WHERE navn = navn
+
+
 # Nyttige metoder
 #fetchone()     -   Returnerer neste resultatet i resultatsettet            (Hvis ingen elementer: None)
 #fetchall()     -   Returnerer hele resultatsettet som en liste av tupler   (Hvis ingen elementer: None)
 #fetchmany(i)   -   Returnerer en liste av i tupler fra resultatsettet
+
+# Printe resultater fra en query
+#cursor.execute(query).fetchone()
+#cursor.execute(query).fetchall()
+#cursor.execute(query).fetchmany(i)
