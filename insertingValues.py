@@ -55,7 +55,7 @@ def reset():
     cursor.execute('''INSERT INTO Gård VALUES (1, 'Sagmo Gård', '1000', 'Bergen', 'Norge')''')
     cursor.execute('''INSERT INTO Gård VALUES (2, 'Storvik Gård' , '2000', 'Oslo', 'Norge')''')
     cursor.execute('''INSERT INTO Gård VALUES (3, 'Bø Gård', '3000', 'Trondheim', 'Norge')''')
-    cursor.execute('''INSERT INTO Gård VALUES (4, 'Nombre de Dios', '1500', 'Santa Ana', 'Colombia')''')
+    cursor.execute('''INSERT INTO Gård VALUES (4, 'Nombre de Dios', '1500', 'Santa Ana', 'El Salvador')''')
     con.commit()
 
     # Kaffebønne
