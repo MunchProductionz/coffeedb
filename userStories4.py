@@ -10,20 +10,32 @@ def search(word):
     cursor = con.cursor()
 
     # Definerer spørring
-    query = '''SELECT Kaffenavn, Brenneri
-                    FROM (SELECT *
-                        FROM Kaffesmaking
-                        WHERE Smaksnotat LIKE “%?%”)
-                    JOIN
-                        (SELECT *
-                        FROM Kaffe
-                        WHERE Beskrivelse LIKE “%?%”)
-                    ON 
-                        Kaffenavn = Navn AND Kaffesmaking.Brenneri = Kaffe.Brenneri
-                ''', (word, word)
+    # query = '''SELECT Kaffenavn, Brenneri
+    #                 FROM (SELECT *
+    #                     FROM Kaffesmaking
+    #                     WHERE Smaksnotat LIKE “%?%”)
+    #                 JOIN
+    #                     (SELECT *
+    #                     FROM Kaffe
+    #                     WHERE Beskrivelse LIKE “%?%”)
+    #                 ON 
+    #                     Kaffenavn = Navn AND Kaffesmaking.Brenneri = Kaffe.Brenneri
+    #             ''', (word, word)
 
-    # Utfører spørring og printer resultatet
-    resultat = cursor.execute(query)
+    # Utfører spørring
+    resultat = cursor.execute('''SELECT Kaffenavn, Brenneri
+                                    FROM (SELECT *
+                                        FROM Kaffesmaking
+                                        WHERE Smaksnotat LIKE “%?%”)
+                                    JOIN
+                                        (SELECT *
+                                        FROM Kaffe
+                                        WHERE Beskrivelse LIKE “%?%”)
+                                    ON 
+                                        Kaffenavn = Navn AND Kaffesmaking.Brenneri = Kaffe.Brenneri
+                                ''', (word, word))
+
+    # Printer resultatet
     print(resultat.fetchall())
 
     # Lukker tilkoblingen

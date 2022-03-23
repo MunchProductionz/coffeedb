@@ -7,7 +7,7 @@ from users import insertUser, isCorrectNameAndPassword, mailExists
 def run():
     
     # Initialiserer variabler
-    navn = ''
+    fulltnavn = ''
     passord = ''
     historie = ' '
 
@@ -21,53 +21,53 @@ def run():
     if (mailExists(epostadresse)):
         
         print('Vennligst logg inn.')
-        navn = input('Navn: ')
+        fulltnavn = input('Fullt navn: ')
         passord = input('Passord: ')
-
+        
         print()
 
         # "Logger inn" på bruker
-        while (not isCorrectNameAndPassword(epostadresse, navn, passord)):
+        while (not isCorrectNameAndPassword(epostadresse, fulltnavn, passord)):
             print('Navnet eller passordet du har oppgitt er feil.')
             print('Vennligst prøv igjen.')
             print('La navn og passord stå tomme for å gå tilbake.')
 
             print()
 
-            navn = input('Navn: ')
+            fulltnavn = input('Fullt navn: ')
             passord = input('Passord: ')
 
             print()
 
             # Kaller run() dersom bruker trykker Enter 2 ganger
-            if (navn == '' and passord == ''):
+            if (fulltnavn == '' and passord == ''):
                 run()
 
     # Hvis bruker ikke allerede eksisterer, registrer bruker        
     else:
 
         print('Du ser ut til å være en ny bruker i databasen.')
-        print('Vennligst registrer navn og passord for brukeren.')
+        print('Vennligst registrer fulltnavn og passord for brukeren.')
 
         print()
 
-        navn = input('Navn: ')
+        fulltnavn = input('Fullt navn: ')
         passord = input('Passord: ')
 
         print()
 
-        while (navn == '' and passord == ''):
+        while (fulltnavn == '' and passord == ''):
             print('Navn eller passord kan ikke være en tom streng.')
             print('Vennligst prøv igjen.')
 
             print()
 
-            navn = input('Navn: ')
+            fulltnavn = input('Fullt navn: ')
             passord = input('Passord: ')
 
             print()
         
-        insertUser(epostadresse, navn, passord)
+        insertUser(epostadresse, fulltnavn, passord)
 
     # Bruker velger ønsket historie, avsluttes ved å inputte tom streng
     while (historie != ''):
@@ -77,7 +77,7 @@ def run():
         print('> 2 - Rangering: Brukere')
         print('> 3 - Rangering: Kaffer')
         print('> 4 - Søk')
-        print('> 5 - Søk')
+        print('> 5 - Kaffe, ikke vasket')
     
         print()
         print('La valg av alternativ stå tomt for å avslutte.')
@@ -95,7 +95,7 @@ def run():
         elif (historie == ''):
             return None
         else:
-            runStory(historie, epostadresse, navn, passord)
+            runStory(historie, epostadresse, fulltnavn, passord)
             print()
             input('Trykk enter for å velge nytt alternativ.')
             print()
@@ -104,7 +104,7 @@ def run():
 
 
 # Hjelpemetode - Kjører riktig brukerhistorie
-def runStory(historie, epostadresse, navn, passord):
+def runStory(historie, epostadresse, fulltnavn, passord):
     if (historie == '1'):
         return None
     elif (historie == '2'):
@@ -131,6 +131,7 @@ def isValidStory(historie):
     return False
 
 
+run()
 
 
 # Brukerhistorie 1

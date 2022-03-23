@@ -14,14 +14,14 @@ def unwashed():
                     FROM (SELECT PartiID
                             FROM (SELECT *
                                     FROM Gård
-                                        WHERE Land = Rwanda OR Land = Colombia)
-                                        JOIN
-                                        (SELECT * 
-                                        FROM Kaffeparti
-                                        WHERE NOT IN (SELECT * FROM Kaffeparti WHERE Foredlingsmetode = “Vasket”)
-                            )
-                            ON
-                            Gård.GårdID = Kaffepart.GårdID
+                                    WHERE Land = Rwanda OR Land = Colombia)
+                                    JOIN
+                                    (SELECT * 
+                                    FROM Kaffeparti
+                                    WHERE Beskrivelse NOT IN (SELECT * FROM Kaffeparti WHERE Foredlingsmetode = “Vasket”)
+                                    )
+                                    ON
+                                    Gård.GårdID = Kaffeparti.GårdID
                         )
                         NATURAL JOIN
                         Kaffe

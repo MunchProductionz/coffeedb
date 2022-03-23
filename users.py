@@ -10,12 +10,12 @@ def mailExists(epostadresse):
     cursor = con.cursor()
 
     # Definerer spørring
-    query = '''SELECT * FROM Bruker WHERE Epostadresse=?''', (epostadresse)
+    # query = '''SELECT * FROM Bruker WHERE Epostadresse = ?''', (epostadresse,)
 
     # Utfører spørring og printer resultatet
-    resultat = cursor.execute(query).fetchone()
+    resultat = cursor.execute('''SELECT * FROM Bruker WHERE Epostadresse = ?''', (epostadresse,)).fetchone()
 
-    # Lukke tilkoblingen
+    # Lukker tilkoblingen
     con.close()
     
     # Sjekker om listen er tom
@@ -25,8 +25,8 @@ def mailExists(epostadresse):
         return False
 
 
-# Hjelpemetode - Sjekker om bruker har oppgitt riktig navn og passord
-def isCorrectNameAndPassword(epostadresse, navn, passord):
+# Hjelpemetode - Sjekker om bruker har oppgitt riktig fulltnavn og passord
+def isCorrectNameAndPassword(epostadresse, passord, fulltnavn):
 
     # Kobler til databasen
     con = sqlite3.connect("test.db")
@@ -35,25 +35,25 @@ def isCorrectNameAndPassword(epostadresse, navn, passord):
     cursor = con.cursor()
 
     # Definerer spørring
-    queryNavn = '''SELECT Navn FROM Bruker WHERE Epostadresse=?''', (epostadresse)
-    queryPassord = '''SELECT Passord FROM Bruker WHERE Epostadresse=?''', (epostadresse)
+    # queryFulltnavn = '''SELECT Fulltnavn FROM Bruker WHERE Epostadresse=?''', (epostadresse)
+    # queryPassord = '''SELECT Passord FROM Bruker WHERE Epostadresse=?''', (epostadresse)
 
     # Utfører spørring og printer resultatet
-    resultatNavn = cursor.execute(queryNavn).fetchone()
-    resultatPassord = cursor.execute(queryPassord).fetchone()
+    resultatFulltnavn = cursor.execute('''SELECT Fulltnavn FROM Bruker WHERE Epostadresse=?''', (epostadresse,)).fetchone()[0]   # Henter fulltnavn
+    resultatPassord = cursor.execute('''SELECT Passord FROM Bruker WHERE Epostadresse=?''', (epostadresse,)).fetchone()[0]       # Henter passord
 
     # Lukke tilkoblingen
     con.close()
     
     # Sjekker om listen er tom
-    if (navn == resultatNavn and passord == resultatPassord):
+    if (fulltnavn == resultatFulltnavn and passord == resultatPassord):
         return True
     else:
         return False
 
 
 # Hjelpemetode - Registrer ny bruker i databasen
-def insertUser(epostadresse, navn, passord):
+def insertUser(epostadresse, passord, fulltnavn):
 
     # Kobler til databasen
     con = sqlite3.connect("test.db")
@@ -61,11 +61,11 @@ def insertUser(epostadresse, navn, passord):
     # Oppretter markør - Du bruker den til å kjøre queries
     cursor = con.cursor()
 
-    # Definerer spørring - ENDRE BRUKERID - Kan bli problem med ''navn'' osv.
-    query = '''INSERT INTO Bruker VALUES (4, '?', '?', '?')''', (epostadresse, navn, passord)
+    # Definerer spørring - ENDRE BRUKERID - Kan bli problem med ''fulltnavn'' osv.
+    # query = '''INSERT INTO Bruker VALUES (5, '?', '?', '?')''', (epostadresse, passord, fulltnavn)
 
-    # Utfører spørring og printer resultatet
-    cursor.execute(query)
+    # Utfører spørring og printer resultatet - Trenger løsning for BrukerID
+    cursor.execute('''INSERT INTO Bruker VALUES (5, ?, ?, ?)''', (epostadresse, passord, fulltnavn))
     con.commit()
 
     # Lukke tilkoblingen

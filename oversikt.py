@@ -16,7 +16,7 @@ con.close()
 
 # Eksempler på queries
 #Ikke gjør dette:      cursor.execute("SELECT * FROM person WHERE navn = '%s'" % navn)           
-#Gjør heller dette:    cursor.execute("SELECT * FROM person WHERE navn = ?", (navn))              
+#Gjør heller dette:    cursor.execute("SELECT * FROM person WHERE navn = ?", (navn,))               // Viktig med komma etter navn så det blir en tuple              
 #Eller dette:          cursor.execute("SELECT * FROM person WHERE navn =:navn", {"navn" = navn}) 
 
 # Query med input fra bruker
@@ -30,7 +30,7 @@ con.close()
 #fetchall()     -   Returnerer hele resultatsettet som en liste av tupler   (Hvis ingen elementer: None)
 #fetchmany(i)   -   Returnerer en liste av i tupler fra resultatsettet
 
-# Printe resultater fra en query
+# Printe resultater fra en query - Funker ikke </3
 #cursor.execute(query).fetchone()
 #cursor.execute(query).fetchall()
 #cursor.execute(query).fetchmany(i)

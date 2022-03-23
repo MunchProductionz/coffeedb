@@ -126,3 +126,39 @@ con.commit()
 
 # Lukker tilkoblingen
 con.close()
+
+
+def buildTables():
+    
+    # Kobler til databasen og oppretter markør
+    con = sqlite3.connect("test.db")
+    cursor = con.cursor()
+
+    # Dropper alle tabeller
+    cursor.execute("DROP TABLE Bruker")
+    cursor.execute("DROP TABLE Brenneri")
+    cursor.execute("DROP TABLE Gård")
+    cursor.execute("DROP TABLE Kaffebønne")
+    cursor.execute("DROP TABLE Foredlingsmetode")
+    cursor.execute("DROP TABLE Kaffeparti")         
+    cursor.execute("DROP TABLE Kaffe")
+    cursor.execute("DROP TABLE Kaffesmaking")
+    cursor.execute("DROP TABLE DyrkesAv")
+    cursor.execute("DROP TABLE DelAvParti")           
+    print('Gamle tabeller har blitt fjernet.')
+
+
+    # Bygger alle tabeller
+    cursor.execute(bruker)
+    cursor.execute(brenneri)
+    cursor.execute(gård)
+    cursor.execute(kaffebønne)
+    cursor.execute(foredlingsmetode)
+    cursor.execute(kaffeparti)          # Fremmed:  Foredlingsmetode, Gård
+    cursor.execute(kaffe)               # Fremmed:  Brenneri, Kaffeparti
+    cursor.execute(kaffesmaking)        # Fremmed:  Bruker, Kaffe, Brenneri
+    cursor.execute(dyrkesAv)            # Fremmed:  Gård, Kaffebønne
+    cursor.execute(delAvParti)          # Fremmed:  Kaffeparti, Kaffebønne 
+    print('Nye tabeller har blitt bygd.')
+
+    return None
