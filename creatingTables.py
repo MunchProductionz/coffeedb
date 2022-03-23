@@ -53,20 +53,21 @@ kaffeparti = '''CREATE TABLE IF NOT EXISTS Kaffeparti(
 
 # Definerer Kaffe-tabellen
 kaffe = '''CREATE TABLE IF NOT EXISTS Kaffe(
-                    Brennerinavn TEXT PRIMARY KEY,
+                    Brennerinavn TEXT,
                     Navn TEXT,
                     Brenningsgrad TEXT NOT NULL,
                     Brenningsdato TEXT NOT NULL,
                     Beskrivelse TEXT,
                     KiloprisNOK INTEGER,
                     PartiID INTEGER NOT NULL,
+                    PRIMARY KEY(Brennerinavn, Navn),
                     FOREIGN KEY (Brennerinavn) REFERENCES Brenneri(Navn)
                     FOREIGN KEY (PartiID) REFERENCES Kaffeparti(PartiID)
                 )'''
 
 # Definerer Kaffesmaking-tabellen
 kaffesmaking = '''CREATE TABLE IF NOT EXISTS Kaffesmaking(
-                    KaffesmakingID INTEGER PRIMARY KEY,
+                    KaffesmakingID INTEGER PRIMARY KEY AUTOINCREMENT,
                     Smaksnotat TEXT,
                     Poeng INTEGER NOT NULL,
                     Dato TEXT,
@@ -75,7 +76,8 @@ kaffesmaking = '''CREATE TABLE IF NOT EXISTS Kaffesmaking(
                     Brennerinavn TEXT,
                     FOREIGN KEY (BrukerID) REFERENCES Bruker(BrukerID),
                     FOREIGN KEY (Kaffenavn) REFERENCES Kaffe(Navn),
-                    FOREIGN KEY (Brennerinavn) REFERENCES Brenneri(Brennerinavn)
+                    FOREIGN KEY (Brennerinavn) REFERENCES Brenneri(Brennerinavn), 
+                    UNIQUE(Kaffenavn,Brennerinavn)
                 )'''
 
 # Definerer DyrkesAv-tabellen
