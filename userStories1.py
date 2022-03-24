@@ -22,7 +22,7 @@ def story_one(email):
     cursor.execute('''INSERT INTO Kaffesmaking (Smaksnotat,Poeng,Dato,BrukerID,Kaffenavn,Brennerinavn) VALUES (?,?,?,?,?,?)''', ( note, points, today, userID, coffee, roastery))
     con.commit()
 
-    # print(cursor.execute("SELECT * FROM Kaffesmaking").fetchall())
+    print(cursor.execute("SELECT * FROM Kaffesmaking").fetchall())
 
     con.close()
     
@@ -95,5 +95,7 @@ def verify_coffee(roastery, name, cursor):
         boolean = True
     return boolean
 
+#buildTables()
 #reset()
+
 #story_one("bruker1@mail.com")
