@@ -27,11 +27,12 @@ def matching_email_password(email, password):
     # Kobler til databasen
     con = sqlite3.connect("test.db")
     cursor = con.cursor()
-    boolean = False
 
     # Utfører spørring
     exists = cursor.execute("SELECT * FROM Bruker WHERE Epostadresse =:epostadresse AND Passord =:passord", {"epostadresse": email, "passord": password})
     
+    boolean = False
+
     # Sjekker om listen er tom
     if exists.fetchone():
         boolean = True
