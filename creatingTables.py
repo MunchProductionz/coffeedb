@@ -70,7 +70,7 @@ kaffesmaking = '''CREATE TABLE IF NOT EXISTS Kaffesmaking(
                     KaffesmakingID INTEGER PRIMARY KEY AUTOINCREMENT,
                     Smaksnotat TEXT,
                     Poeng INTEGER NOT NULL,
-                    Dato TEXT,
+                    Dato DATE,
                     BrukerID INTEGER,
                     Kaffenavn TEXT,
                     Brennerinavn TEXT,
@@ -163,3 +163,4 @@ def buildTables():
     print('Nye tabeller har blitt bygd.')
 
     return None
+
