@@ -49,8 +49,8 @@ def story_two():
 
     #return query
 
-s = story_two()
+#s = story_two()
 
 # Printer hver linje
-print(s)
+#print(s)
 

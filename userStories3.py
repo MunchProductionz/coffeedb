@@ -28,6 +28,8 @@ def story_three():
     all_coffees = cursor.execute(query).fetchall()
     con.close()        
     
+    print("Under følger en oversikt over kaffene som har fått høyest gjennomsnittlig rating i forhold til pris")
+    
     for coffee in all_coffees:
         print(coffee)
     print()

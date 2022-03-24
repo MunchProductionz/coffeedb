@@ -95,5 +95,5 @@ def verify_coffee(roastery, name, cursor):
         boolean = True
     return boolean
 
-reset()
+#reset()
 #story_one("bruker1@mail.com")
