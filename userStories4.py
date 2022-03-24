@@ -23,19 +23,12 @@ def story_four(word):
     #             ''', (word, word)
 
     # Utfører spørring
-
-    resultat = cursor.execute(('''SELECT DISTINCT Kaffenavn, Brenneri
-                                    FROM ((SELECT *
-                                        FROM Kaffesmaking
-                                        WHERE Smaksnotat 
-                                        LIKE :descr)
-                                    UNION
-                                        (SELECT *
-                                        FROM Kaffe
-                                        WHERE Beskrivelse 
-                                        LIKE :descr))
-                                    
-                                '''), {"descr": "%"+word+"%"}).fetchall()
+    
+    resultat = cursor.execute(('''
+                      SELECT Kaffenavn, Brenneri
+                      FROM Kaffesmaking INNER JOIN KAFFE
+                      WHERE Smaksnotat LIKE :descr OR Beskrivelse LIKE :descr
+                       '''), {"descr": "%"+word+"%"}).fetchall()
     
     result = cursor.execute(('''SELECT * FROM Kaffesmaking WHERE Smaksnotat LIKE :descr'''), {"descr": "%"+word+"%"}).fetchall()
 
@@ -49,7 +42,7 @@ def story_four(word):
     
     return None
 
-story_four("i")
+story_four("rei")
 # Spørringer
 # cursor.execute("SELECT * FROM Kaffesmaking")
 # print(cursor.fetchall())
