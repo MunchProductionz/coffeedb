@@ -43,7 +43,10 @@ def story_two():
     # Lukker tilkoblingen
     con.close()
 
-    return query
+    for user in query:
+        print("Navn: " + user[0] + ", Unike kaffer smakt: " + str(user[1]))
+
+    #return query
 
 s = story_two()
 
