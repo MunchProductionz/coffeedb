@@ -28,8 +28,8 @@ def story_two():
     cursor = con.cursor()
 
     # Definerer spørring
-    query = cursor.execute('''SELECT Kaffenavn, Smakinger
-                     FROM (SELECT COUNT(BrukerID) AS Smakinger, Kaffenavn, Brennerinavn
+    query = cursor.execute('''SELECT Fulltnavn, Smakinger
+                     FROM (SELECT COUNT(BrukerID) AS Smakinger, BrukerID, Kaffenavn, Brennerinavn
                          FROM Kaffesmaking
                          GROUP BY BrukerID)
                      JOIN
@@ -48,6 +48,5 @@ def story_two():
 s = story_two()
 
 # Printer hver linje
-for (Kaffenavn, Smakinger) in s:
-    print(Kaffenavn, Smakinger)
+print(s)
 
