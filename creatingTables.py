@@ -56,7 +56,7 @@ kaffe = '''CREATE TABLE IF NOT EXISTS Kaffe(
                     Brennerinavn TEXT,
                     Navn TEXT,
                     Brenningsgrad TEXT NOT NULL,
-                    Brenningsdato TEXT NOT NULL,
+                    Brenningsdato DATE NOT NULL,
                     Beskrivelse TEXT,
                     KiloprisNOK INTEGER,
                     PartiID INTEGER NOT NULL,

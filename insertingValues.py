@@ -89,7 +89,7 @@ def reset():
     # Kaffesmaking
     cursor.execute('''INSERT INTO Kaffesmaking (Smaksnotat,Poeng,Dato,BrukerID,Kaffenavn,Brennerinavn) VALUES ('Grei kvalitet', 3, '2022-01-02', 1, 'Nescafe', 'Bergen Brenneri')''')
     cursor.execute('''INSERT INTO Kaffesmaking (Smaksnotat,Poeng,Dato,BrukerID,Kaffenavn,Brennerinavn) VALUES ('Smakfulle bønner', 6, '2022-02-03', 2, 'Espresso', 'Oslo Brenneri')''')
-    cursor.execute('''INSERT INTO Kaffesmaking (Smaksnotat,Poeng,Dato,BrukerID,Kaffenavn,Brennerinavn) VALUES ('Bemerkelsesverdig smak', 9, '2022-03-04', 3, 'Evergood', 'Trondheim Brenneri')''')
+    cursor.execute('''INSERT INTO Kaffesmaking (Smaksnotat,Poeng,Dato,BrukerID,Kaffenavn,Brennerinavn) VALUES ('Bemerkelsesverdig smak', 9, '2021-03-04', 3, 'Evergood', 'Trondheim Brenneri')''')
    # cursor.execute('''INSERT INTO Kaffesmaking (Smaksnotat,Poeng,Dato,BrukerID,Kaffenavn,Brennerinavn) VALUES ('Wow - en odyssé for smaksløkene: sitrusskall, melkesjokolade, aprikos!', 10, '2022-03-21', 4, 'Vinterkaffe 2022', 'Jacobsen & Svart')''')
     con.commit()
 

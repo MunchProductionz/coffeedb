@@ -31,6 +31,7 @@ def story_two():
     query = cursor.execute('''SELECT Fulltnavn, Smakinger
                      FROM (SELECT COUNT(BrukerID) AS Smakinger, BrukerID, Kaffenavn, Brennerinavn
                          FROM Kaffesmaking
+                         WHERE Strftime('%Y', Dato) = '2022'
                          GROUP BY BrukerID)
                      JOIN
                          (SELECT BrukerID AS ID, Fulltnavn
