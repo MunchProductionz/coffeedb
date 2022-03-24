@@ -1,14 +1,17 @@
 import email
 import sqlite3
+from insertingValues import rebuild
 from userStories1 import story_one
 from userStories2 import story_two
 from userStories3 import story_three
 from userStories4 import story_four
-from userStories5 import unwashed
+from userStories5 import story_five
 
 from users import insert_user, matching_email_password, verify_email
 
 def run():
+    
+    print()
     print('Velkommen til coffeeDB!')
     prompt = input("Skriv 'Ny bruker' for å opprette ny bruker, eller hva som helst annet for å logge inn: ")
     
@@ -128,7 +131,7 @@ def run_story(historie, epostadresse):
         word = input('Skriv ordet du ønsker å søke på: ')
         story_four(word)
     elif (historie == '5'):
-        unwashed()
+        story_five()
 
 
 # Hjelpemetode - Validerer historie
@@ -141,7 +144,7 @@ def is_valid_story(story):
     
     return False
 
-
+rebuild()
 run()
 
 

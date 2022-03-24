@@ -1,7 +1,7 @@
 import sqlite3
 
 # Brukerhistorie 5
-def unwashed():
+def story_five():
 
     # Kobler til databasen
     con = sqlite3.connect("test.db")

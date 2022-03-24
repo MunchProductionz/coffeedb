@@ -31,7 +31,7 @@ def story_three():
     print("Under følger en oversikt over kaffene som har fått høyest gjennomsnittlig rating i forhold til pris")
     
     for coffee in all_coffees:
-        print(coffee)
+        print("Brenneri: " + coffee[0] + ", Kaffenavn: " + coffee[1] + ", Pris: " + str(coffee[2]) + ", Gjennomsnitsscore: " + str(coffee[3]))
     print()
     
     

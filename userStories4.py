@@ -23,18 +23,13 @@ def story_four(word):
     #             ''', (word, word)
 
     # Utfører spørring
-    
     resultat = cursor.execute(('''
                       SELECT Kaffenavn, Brenneri
                       FROM Kaffesmaking INNER JOIN KAFFE
                       WHERE Smaksnotat LIKE :descr OR Beskrivelse LIKE :descr
                        '''), {"descr": "%"+word+"%"}).fetchall()
-    
-    result = cursor.execute(('''SELECT * FROM Kaffesmaking WHERE Smaksnotat LIKE :descr'''), {"descr": "%"+word+"%"}).fetchall()
 
     # Printer resultatet
-     
-    print(cursor.execute(('''SELECT * FROM Kaffesmaking WHERE Smaksnotat LIKE :descr'''), {"descr": "%"+word+"%"}).fetchall())
     print(resultat)
 
     # Lukker tilkoblingen
@@ -42,7 +37,7 @@ def story_four(word):
     
     return None
 
-story_four("rei")
+# story_four("rei")
 # Spørringer
 # cursor.execute("SELECT * FROM Kaffesmaking")
 # print(cursor.fetchall())

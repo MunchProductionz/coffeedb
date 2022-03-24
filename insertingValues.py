@@ -39,9 +39,9 @@ def reset():
 
     # Bruker
     cursor.execute('''INSERT INTO Bruker VALUES (1, 'bruker1@mail.com', '123', 'Bruker 1')''')
-    cursor.execute('''INSERT INTO Bruker VALUES (2, 'bruker2@mail.com', '456', 'Bruker 2')''')
-    cursor.execute('''INSERT INTO Bruker VALUES (3, 'bruker3@mail.com', '789', 'Bruker 3')''')
-    cursor.execute('''INSERT INTO Bruker VALUES (4, 'bruker4@mail.com', '111', 'Bruker 4')''')
+    cursor.execute('''INSERT INTO Bruker (Epostadresse, Passord, Fulltnavn) VALUES ('bruker2@mail.com', '456', 'Bruker 2')''')
+    cursor.execute('''INSERT INTO Bruker (Epostadresse, Passord, Fulltnavn) VALUES ('bruker3@mail.com', '789', 'Bruker 3')''')
+    cursor.execute('''INSERT INTO Bruker (Epostadresse, Passord, Fulltnavn) VALUES ('bruker4@mail.com', '111', 'Bruker 4')''')
     con.commit()
 
     # Brenneri
@@ -66,10 +66,9 @@ def reset():
     con.commit()
 
     # Foredlingsmetode
-    # cursor.execute('''INSERT INTO Foredlingsmetode VALUES ('Bærtørket', 'Hengt til tørk')''')
+    cursor.execute('''INSERT INTO Foredlingsmetode VALUES ('Bærtørket', 'Hengt til tørk')''')
     cursor.execute('''INSERT INTO Foredlingsmetode VALUES ('Vasket', 'Skylt i rist')''')
     cursor.execute('''INSERT INTO Foredlingsmetode VALUES ('Plukket', 'Hentet rett fra plantene')''')
-    cursor.execute('''INSERT INTO Foredlingsmetode VALUES ('Bærtørket', '')''')
     con.commit()
 
     # Kaffeparti
@@ -90,7 +89,7 @@ def reset():
     cursor.execute('''INSERT INTO Kaffesmaking (Smaksnotat,Poeng,Dato,BrukerID,Kaffenavn,Brenneri) VALUES ('Grei kvalitet', 3, '2022-01-02', 1, 'Nescafe', 'Bergen Brenneri')''')
     cursor.execute('''INSERT INTO Kaffesmaking (Smaksnotat,Poeng,Dato,BrukerID,Kaffenavn,Brenneri) VALUES ('Smakfulle bønner', 6, '2022-02-03', 2, 'Espresso', 'Oslo Brenneri')''')
     cursor.execute('''INSERT INTO Kaffesmaking (Smaksnotat,Poeng,Dato,BrukerID,Kaffenavn,Brenneri) VALUES ('Bemerkelsesverdig smak', 9, '2021-03-04', 3, 'Evergood', 'Trondheim Brenneri')''')
-   # cursor.execute('''INSERT INTO Kaffesmaking (Smaksnotat,Poeng,Dato,BrukerID,Kaffenavn,Brennerinavn) VALUES ('Wow - en odyssé for smaksløkene: sitrusskall, melkesjokolade, aprikos!', 10, '2022-03-21', 4, 'Vinterkaffe 2022', 'Jacobsen & Svart')''')
+    cursor.execute('''INSERT INTO Kaffesmaking (Smaksnotat,Poeng,Dato,BrukerID,Kaffenavn,Brenneri) VALUES ('Wow - en odyssé for smaksløkene: sitrusskall, melkesjokolade, aprikos!', 10, '2022-03-21', 4, 'Vinterkaffe 2022', 'Jacobsen & Svart')''')
     con.commit()
 
     # DyrkesAv
@@ -115,10 +114,6 @@ def reset():
 
 def rebuild():
 
-    # Kobler til databasen og oppretter markør
-    con = sqlite3.connect("test.db")
-    cursor = con.cursor()
-
     # Bygger nye tabeller
     buildTables()
 
@@ -130,4 +125,4 @@ def rebuild():
     return None
 
 #reset()
-# rebuild()
+rebuild()
