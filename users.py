@@ -16,33 +16,27 @@ def verify_email(email):
     if exists.fetchone():
         boolean = True
 
+    # Lukker tilkoblingen
     con.close()
     return boolean
 
 
 # Hjelpemetode - Sjekker om bruker har oppgitt riktig fulltnavn og passord
 def matching_email_password(email, password):
+    
     # Kobler til databasen
     con = sqlite3.connect("test.db")
     cursor = con.cursor()
+    boolean = False
 
-    # Definerer spørring
-    # queryFulltnavn = '''SELECT Fulltnavn FROM Bruker WHERE Epostadresse=?''', (epostadresse)
-    # queryPassord = '''SELECT Passord FROM Bruker WHERE Epostadresse=?''', (epostadresse)
-
+    # Utfører spørring
     exists = cursor.execute("SELECT * FROM Bruker WHERE Epostadresse =:epostadresse AND Passord =:passord", {"epostadresse": email, "passord": password})
-    # Utfører spørring og printer resultatet
-    #resultatFulltnavn = cursor.execute('''SELECT Fulltnavn FROM Bruker WHERE Epostadresse=?''', (epostadresse,)).fetchone()[0]   # Henter fulltnavn
-    #resultatPassord = cursor.execute('''SELECT Passord FROM Bruker WHERE Epostadresse=?''', (epostadresse,)).fetchone()[0]       # Henter passord
-
-    # Lukke tilkoblingen
     
     # Sjekker om listen er tom
-    boolean = False
-    
     if exists.fetchone():
         boolean = True
 
+    # Lukker tilkoblingen
     con.close()
     return boolean
 
@@ -63,7 +57,7 @@ def insert_user(email, password, user_name):
     cursor.execute('''INSERT INTO Bruker (Epostadresse,Passord,Fulltnavn) VALUES (?, ?, ?)''', (email, password, user_name))
     con.commit()
 
-    # Lukke tilkoblingen
+    # Lukker tilkoblingen
     con.close()
     
     
