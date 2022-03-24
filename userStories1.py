@@ -23,7 +23,9 @@ def story_one(email):
     con.commit()
     con.close()
     
+    print()
     print("Din smaking av kaffen '" + coffee + "' fra brenneriet '" + roastery + "' er registrert med poengscore " + points + " og smaksnotat '" + note + "' er registrert.\n")
+    print()
 
 def get_roastery(cursor):
     roastery = input("Skriv inn navn på brenneriet: ")

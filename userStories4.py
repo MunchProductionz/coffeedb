@@ -9,28 +9,22 @@ def story_four(word):
     # Oppretter markør - Du bruker den til å kjøre queries
     cursor = con.cursor()
 
-    # Definerer spørring
-    # query = '''SELECT Kaffenavn, Brenneri
-    #                 FROM (SELECT *
-    #                     FROM Kaffesmaking
-    #                     WHERE Smaksnotat LIKE “%?%”)
-    #                 JOIN
-    #                     (SELECT *
-    #                     FROM Kaffe
-    #                     WHERE Beskrivelse LIKE “%?%”)
-    #                 ON 
-    #                     Kaffenavn = Navn AND Kaffesmaking.Brenneri = Kaffe.Brenneri
-    #             ''', (word, word)
-
     # Utfører spørring
     resultat = cursor.execute(('''
                       SELECT Kaffenavn, Brenneri
-                      FROM Kaffesmaking INNER JOIN KAFFE
-                      WHERE Smaksnotat LIKE :descr OR Beskrivelse LIKE :descr
+                      FROM Kaffesmaking NATURAL JOIN Kaffe
+                      WHERE Smaksnotat LIKE :descr
+                      UNION
+                      SELECT Navn, Brennerinavn
+                      FROM Kaffe
+                      WHERE Beskrivelse LIKE :descr
                        '''), {"descr": "%"+word+"%"}).fetchall()
 
     # Printer resultatet
-    print(resultat)
+    print(f'Her er en liste over brennerinavn og kaffenavn som inneholder ordet "' + word + '":')
+    for res in resultat:
+        print("Brennerinavn: " + res[0] + ", Kaffenavn: " + str(res[1]))
+    print()
 
     # Lukker tilkoblingen
     con.close()

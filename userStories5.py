@@ -10,26 +10,18 @@ def story_five():
     cursor = con.cursor()
 
     # Definerer spørring
-    query = '''SELECT Brennerinavn, Kaffenavn
-                    FROM (SELECT PartiID
-                            FROM (SELECT *
-                                    FROM Gård
-                                    WHERE Land = Rwanda OR Land = Colombia)
-                                    JOIN
-                                    (SELECT * 
-                                    FROM Kaffeparti
-                                    WHERE Beskrivelse NOT IN (SELECT * FROM Kaffeparti WHERE Foredlingsmetode = “Vasket”)
-                                    )
-                                    ON
-                                    Gård.GårdID = Kaffeparti.GårdID
-                        )
-                        NATURAL JOIN
-                        Kaffe
-                '''
+    query = '''SELECT Brennerinavn, Kaffe.Navn
+                FROM (Kaffe NATURAL JOIN Kaffeparti) INNER JOIN Gård ON Kaffeparti.GårdID = Gård.GårdID
+                WHERE (Land = "Rwanda" OR Land = "Colombia") AND Foredlingsmetode != "Vasket"'''
 
     # Utfører spørring og printer resultatet
     resultat = cursor.execute(query)
-    print(resultat.fetchall())
+    
+    # Printer resultatet
+    print("Her er en liste over brennerinavn og kaffenavn fra Rwanda eller Colombia som ikke er vasket:")
+    for res in resultat:
+        print("Brennerinavn: " + res[0] + ", Kaffenavn: " + str(res[1]))
+    print()
 
     # Lukker tilkoblingen
     con.close()
