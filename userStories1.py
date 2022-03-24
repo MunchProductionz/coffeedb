@@ -6,23 +6,20 @@ from datetime import date
 
 
 def story_one():
-    
     con = sqlite3.connect("test.db")
     cursor = con.cursor()
     
     roastery = get_roastery(cursor)
     coffee = get_coffee(roastery, cursor)
-    
-    points = int(input("Ranger kaffen fra 1 til 10: "))
+    points = get_points()
     note = input("Fyll inn din vurdering av kaffen: ")
-
     userID = 1
     today = date.today()
 
     cursor.execute('''INSERT INTO Kaffesmaking (Smaksnotat,Poeng,Dato,BrukerID,Kaffenavn,Brennerinavn) VALUES (?,?,?,?,?,?)''', ( note, points, today, userID, coffee, roastery))
     con.commit()
 
-    print(cursor.execute("SELECT * FROM Kaffesmaking").fetchall())
+    # print(cursor.execute("SELECT * FROM Kaffesmaking").fetchall())
 
     con.close()
 
@@ -40,6 +37,13 @@ def get_coffee(roastery, cursor):
     while (not valid_input):
         coffee = input("Det var ikke en registrert kaffe. Vennligst skriv inn et gydlig kaffenavn: ")
         valid_input = check_coffee(roastery, coffee, cursor)
+    return coffee
+
+def get_points():
+    points = input("Ranger kaffen fra 1 til 10: ")
+    while (not points.isdigit()):
+        points = input("Poengvurderingen må være et tall. Vennligst ranger kaffen fra 1 til 10: ")
+    return points
 
 def check_user(epostadresse, fulltnavn):
     con = sqlite3.connect("test.db")
@@ -75,4 +79,5 @@ def check_coffee(brenneri, navn, cursor):
         boolean = True
     return boolean
 
+reset()
 story_one()
