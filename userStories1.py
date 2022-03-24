@@ -36,7 +36,7 @@ def get_roastery(cursor):
 
 def get_coffee(roastery, cursor):
     coffee = input("Skriv inn navn på kaffen: ")
-    valid_input = check_coffee(roastery, coffee)
+    valid_input = check_coffee(roastery, coffee, cursor)
     while (not valid_input):
         coffee = input("Det var ikke en registrert kaffe. Vennligst skriv inn et gydlig kaffenavn: ")
         valid_input = check_coffee(roastery, coffee, cursor)
@@ -74,9 +74,5 @@ def check_coffee(brenneri, navn, cursor):
     if exists.fetchone():
         boolean = True
     return boolean
-
-reset()
-buildTables()
-reset()
 
 story_one()
