@@ -1,7 +1,7 @@
 import email
 import sqlite3
 from userStories1 import story_one
-#from userStories2 import story_two
+from userStories2 import story_two
 from userStories3 import story_three
 from userStories4 import search
 from userStories5 import unwashed
@@ -121,7 +121,7 @@ def run_story(historie, epostadresse):
     if (historie == '1'):
         story_one(epostadresse)
     elif (historie == '2'):
-        return None
+        story_two()
     elif (historie == '3'):
         story_three()
     elif (historie == '4'):

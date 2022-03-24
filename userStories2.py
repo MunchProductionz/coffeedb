@@ -42,9 +42,10 @@ def story_two():
     
     # Lukker tilkoblingen
     con.close()
-
+    print("Her er en sortert liste med brukere som har smakt flest antall unike kaffer i år: ")
     for user in query:
-        print("Navn: " + user[0] + ", Unike kaffer smakt: " + str(user[1]))
+        print("Navn: " + user[0] + ", Unike kaffer: " + str(user[1]))
+    print()
 
     #return query
 
