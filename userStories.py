@@ -69,7 +69,12 @@ def login():
     print()
 
     while (not verify_email(email)):
+        
+        print("Trykk X for å avslutte")
         email = input("Det var ikke en registrert epostadresse. Vennligst prøv på nytt: ")
+        if (email.lower() == "x"):
+            run()
+            
     print('Vennligst logg inn.')
     
     password = input('Passord: ')
