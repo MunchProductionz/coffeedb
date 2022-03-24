@@ -109,8 +109,6 @@ def reset():
     # Lukker tilkoblingen
     con.close()
 
-    return None
-
 
 def rebuild():
 
@@ -121,8 +119,6 @@ def rebuild():
     reset()
 
     print('Tabellene er ferdig gjenopprettet.')
-    
-    return None
 
 #reset()
 # rebuild()

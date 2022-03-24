@@ -48,11 +48,8 @@ def insert_user(email, password, user_name):
     # Kobler til databasen
     con = sqlite3.connect("test.db")
 
-    # Oppretter markør - Du bruker den til å kjøre queries
+    # Oppretter markør
     cursor = con.cursor()
-
-    # Definerer spørring - ENDRE BRUKERID - Kan bli problem med ''fulltnavn'' osv.
-    # query = '''INSERT INTO Bruker VALUES (5, '?', '?', '?')''', (epostadresse, passord, fulltnavn)
 
     # Utfører spørring og printer resultatet - Trenger løsning for BrukerID
     cursor.execute('''INSERT INTO Bruker (Epostadresse,Passord,Fulltnavn) VALUES (?, ?, ?)''', (email, password, user_name))

@@ -6,7 +6,7 @@ def story_five():
     # Kobler til databasen
     con = sqlite3.connect("test.db")
 
-    # Oppretter markør - Du bruker den til å kjøre queries
+    # Oppretter markør
     cursor = con.cursor()
 
     # Definerer spørring
@@ -25,5 +25,3 @@ def story_five():
 
     # Lukker tilkoblingen
     con.close()
-    
-    return None

@@ -6,7 +6,7 @@ def story_four(word):
     # Kobler til databasen
     con = sqlite3.connect("test.db")
 
-    # Oppretter markør - Du bruker den til å kjøre queries
+    # Oppretter markør
     cursor = con.cursor()
 
     # Utfører spørring
@@ -28,10 +28,3 @@ def story_four(word):
 
     # Lukker tilkoblingen
     con.close()
-    
-    return None
-
-# story_four("rei")
-# Spørringer
-# cursor.execute("SELECT * FROM Kaffesmaking")
-# print(cursor.fetchall())

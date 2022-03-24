@@ -1,11 +1,5 @@
 import sqlite3
 
-# Kobler til databasen
-con = sqlite3.connect("test.db")
-
-# Oppretter markør - Du bruker den til å kjøre queries
-cursor = con.cursor()
-
 # Definerer Bruker-tabellen
 bruker = '''CREATE TABLE IF NOT EXISTS Bruker(
                     BrukerID INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -96,39 +90,6 @@ delAvParti = '''CREATE TABLE IF NOT EXISTS DelAvParti(
                 )'''
 
 
-# Lager tabeller
-cursor.execute(bruker)
-cursor.execute(brenneri)
-cursor.execute(gård)
-cursor.execute(kaffebønne)
-cursor.execute(foredlingsmetode)
-cursor.execute(kaffeparti)          # Fremmed:  Foredlingsmetode, Gård
-cursor.execute(kaffe)               # Fremmed:  Brenneri, Kaffeparti
-cursor.execute(kaffesmaking)        # Fremmed:  Bruker, Kaffe, Brenneri
-cursor.execute(dyrkesAv)            # Fremmed:  Gård, Kaffebønne
-cursor.execute(delAvParti)          # Fremmed:  Kaffeparti, Kaffebønne  
-
-
-# Commiter endringen
-con.commit()
-
-# Brukerhistorie 1
-# cursor.execute('''INSERT INTO Kaffesmaking VALUES ('Wow – en odyssé for smaksløkene: sitrusskall, melkesjokolade, aprikos!', 10, 'Vinterkaffe 2022', 'Jacobsen & Svart')''')
-# con.commit()
-
-# !! Se "insertingValues.py" for innsetting av verdier i tabeller !!
-
-
-# cursor.execute("SELECT * FROM Bruker WHERE BrukerID=2")
-# print(cursor.fetchall())
-
-# Brukerhistorie 2
-# con.execute()
-
-# Lukker tilkoblingen
-con.close()
-
-
 def buildTables():
     
     # Kobler til databasen og oppretter markør
@@ -162,5 +123,8 @@ def buildTables():
     cursor.execute(delAvParti)          # Fremmed:  Kaffeparti, Kaffebønne 
     print('Nye tabeller har blitt bygd.')
 
-    return None
+    # Commiter endringen
+    con.commit()
 
+    # Lukker tilkoblingen
+    con.close()
