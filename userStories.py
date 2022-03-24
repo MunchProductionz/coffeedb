@@ -1,78 +1,42 @@
+import email
 import sqlite3
-from userStories3 import unwashed
-from userStories4 import search
+from userStories1 import story_one
+from userStories2 import story_two
+from userStories3 import story_three
+from userStories4 import story_four
+from userStories5 import unwashed
 
-from users import insertUser, isCorrectNameAndPassword, mailExists
+from users import insert_user, matching_email_password, verify_email
 
 def run():
+    print('Velkommen til coffeeDB!')
+    prompt = input("Skriv 'Ny bruker' for å opprette ny bruker, eller hva som helst annet for å logge inn: ")
     
-    # Initialiserer variabler
-    fulltnavn = ''
-    passord = ''
-    historie = ' '
-
-    # Henter epostadresse
-    print('Velkommen til coffeeDB.')
-    epostadresse = input('Vennligst skriv inn epostadressen din: ')
-    
-    print()
-
-    # Sjekker om mailen/brukeren eksisterer i databasen
-    if (mailExists(epostadresse)):
-        
-        print('Vennligst logg inn.')
-        fulltnavn = input('Fullt navn: ')
-        passord = input('Passord: ')
-        
-        print()
-
-        # "Logger inn" på bruker
-        while (not isCorrectNameAndPassword(epostadresse, fulltnavn, passord)):
-            print('Navnet eller passordet du har oppgitt er feil.')
-            print('Vennligst prøv igjen.')
-            print('La navn og passord stå tomme for å gå tilbake.')
-
-            print()
-
-            fulltnavn = input('Fullt navn: ')
-            passord = input('Passord: ')
-
-            print()
-
-            # Kaller run() dersom bruker trykker Enter 2 ganger
-            if (fulltnavn == '' and passord == ''):
-                run()
-
-    # Hvis bruker ikke allerede eksisterer, registrer bruker        
+    if prompt.lower() == "ny bruker":
+        email = new_user()
     else:
-
-        print('Du ser ut til å være en ny bruker i databasen.')
-        print('Vennligst registrer fulltnavn og passord for brukeren.')
-
-        print()
-
-        fulltnavn = input('Fullt navn: ')
-        passord = input('Passord: ')
-
-        print()
-
-        while (fulltnavn == '' and passord == ''):
-            print('Navn eller passord kan ikke være en tom streng.')
-            print('Vennligst prøv igjen.')
-
-            print()
-
-            fulltnavn = input('Fullt navn: ')
-            passord = input('Passord: ')
-
-            print()
+        email = login()
         
-        insertUser(epostadresse, fulltnavn, passord)
+    print("Du er nå logget inn i coffeDB! Velg et av alternativene under:\n")
+    
+    story = get_story()
+    
+    while (story != -1):
+        run_story(story, email)
+        
+        x = input("Trykk enter for å avslutte, eller noe annet for å velge en ny brukerhistorie.")
+        if (x == ''):
+            story = -1
+        else:
+            story = get_story()
 
-    # Bruker velger ønsket historie, avsluttes ved å inputte tom streng
-    while (historie != ''):
+    print("Du er nå logget ut av coffeeDB. Ha en fin dag!")
+            
 
-        print('Alternativer:')
+# Hjelpemetode - hente hvilken brukerhistorie som skal kjøres
+def get_story():
+    story = ''
+    while (story != -1):
         print('> 1 - Input Brukerhistorie 1')
         print('> 2 - Rangering: Brukere')
         print('> 3 - Rangering: Kaffer')
@@ -83,49 +47,96 @@ def run():
         print('La valg av alternativ stå tomt for å avslutte.')
         print()
 
-        historie = input('Vennligst velg et av alternativene fra menyen (1-5) over: ')
+        story = input('Vennligst velg et av alternativene fra menyen (1-5) over: ')
 
         print()
 
-        if (not isValidStory(historie)):
-            print('Ikke et gyldig alternativ')
-            print('Vennligst prøv igjen.')
-            print()
-        
-        elif (historie == ''):
-            return None
-        else:
-            runStory(historie, epostadresse, fulltnavn, passord)
-            print()
-            input('Trykk enter for å velge nytt alternativ.')
-            print()
+        if (story == ''):
+            return -1  
             
+        if (is_valid_story(story)):
+            return story 
+        
+        print('Ikke et gyldig alternativ')
+        print('Vennligst prøv igjen.')
+        print() 
+         
+         
+# Hjelpemetode - logge inn         
+def login():
+    email = input('Vennligst skriv inn epostadressen din: ')
+    
+    print()
+
+    while (not verify_email(email)):
+        
+        print("Trykk X for å avslutte")
+        email = input("Det var ikke en registrert epostadresse. Vennligst prøv på nytt: ")
+        if (email.lower() == "x"):
+            run()
+            
+    print('Vennligst logg inn.')
+    
+    password = input('Passord: ')
+        
+    print()
+
+    while (not matching_email_password(email, password)):
+        print('Navnet eller passordet du har oppgitt er feil.')
+        print('Vennligst prøv igjen.')
+        print('Trykk "X" for å gå tilbake.')
+
+        print()
+
+        password = input('Passord: ')
+
+        print()
+
+        if (password.lower() == 'x'):
+            run()
+            
+    return email
 
 
-
+# Hjelpemetode - opprett ny bruker
+def new_user():
+    print("Vennligst fyll ut informasjonen under for å registrere deg i coffeDB")
+    email = input("Epostadresse: ")
+    while (verify_email(email)):
+        print("Det er allerede en bruker registrert med epostadresse '" + email + "'.")
+        email = input("Prøv igjen: ")
+    name = input("Fullt navn: ")
+    while (name == ''):
+        name = input("Navn kan ikke være tomt. Vennligst skriv inn navnet du vil registreres med: ")
+    password = input("Passord: ")
+    while (password == ''):
+        password = input("Passord kan ikke være blankt. Vennligst skriv inn et passord: ")
+    insert_user(email, password, name)
+    print("Bruker registrert med mail '" + email + "' og navn '" + name + "'")
+    return email
+    
+    
 # Hjelpemetode - Kjører riktig brukerhistorie
-def runStory(historie, epostadresse, fulltnavn, passord):
+def run_story(historie, epostadresse):
     if (historie == '1'):
-        return None
+        story_one(epostadresse)
     elif (historie == '2'):
-        return None
+        story_two()
     elif (historie == '3'):
-        return None
+        story_three()
     elif (historie == '4'):
         word = input('Skriv ordet du ønsker å søke på: ')
-        search(word)
+        story_four(word)
     elif (historie == '5'):
         unwashed()
 
+
 # Hjelpemetode - Validerer historie
-def isValidStory(historie):
-
-    if (historie == ''):
-        return True
-
-    for i in range(5):
-        h = str(i + 1)
-        if (historie == h):
+def is_valid_story(story):
+    
+    for i in range(1, 6):
+        h = str(i)
+        if (story == h):
             return True
     
     return False

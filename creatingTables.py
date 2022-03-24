@@ -8,7 +8,7 @@ cursor = con.cursor()
 
 # Definerer Bruker-tabellen
 bruker = '''CREATE TABLE IF NOT EXISTS Bruker(
-                    BrukerID INTEGER PRIMARY KEY,
+                    BrukerID INTEGER PRIMARY KEY AUTOINCREMENT,
                     Epostadresse TEXT UNIQUE,
                     Passord TEXT NOT NULL,
                     Fulltnavn TEXT NOT NULL
@@ -53,29 +53,30 @@ kaffeparti = '''CREATE TABLE IF NOT EXISTS Kaffeparti(
 
 # Definerer Kaffe-tabellen
 kaffe = '''CREATE TABLE IF NOT EXISTS Kaffe(
-                    Brennerinavn TEXT PRIMARY KEY,
+                    Brennerinavn TEXT,
                     Navn TEXT,
                     Brenningsgrad TEXT NOT NULL,
-                    Brenningsdato TEXT NOT NULL,
+                    Brenningsdato DATE NOT NULL,
                     Beskrivelse TEXT,
                     KiloprisNOK INTEGER,
                     PartiID INTEGER NOT NULL,
+                    PRIMARY KEY(Brennerinavn, Navn),
                     FOREIGN KEY (Brennerinavn) REFERENCES Brenneri(Navn)
                     FOREIGN KEY (PartiID) REFERENCES Kaffeparti(PartiID)
                 )'''
 
 # Definerer Kaffesmaking-tabellen
 kaffesmaking = '''CREATE TABLE IF NOT EXISTS Kaffesmaking(
-                    KaffesmakingID INTEGER PRIMARY KEY,
+                    KaffesmakingID INTEGER PRIMARY KEY AUTOINCREMENT,
                     Smaksnotat TEXT,
                     Poeng INTEGER NOT NULL,
-                    Dato TEXT,
+                    Dato DATE,
                     BrukerID INTEGER,
                     Kaffenavn TEXT,
-                    Brennerinavn TEXT,
+                    Brenneri TEXT,
                     FOREIGN KEY (BrukerID) REFERENCES Bruker(BrukerID),
                     FOREIGN KEY (Kaffenavn) REFERENCES Kaffe(Navn),
-                    FOREIGN KEY (Brennerinavn) REFERENCES Brenneri(Brennerinavn)
+                    FOREIGN KEY (Brenneri) REFERENCES Brenneri(Brennerinavn)
                 )'''
 
 # Definerer DyrkesAv-tabellen
@@ -162,3 +163,4 @@ def buildTables():
     print('Nye tabeller har blitt bygd.')
 
     return None
+

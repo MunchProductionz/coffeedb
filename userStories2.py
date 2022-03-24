@@ -19,7 +19,7 @@ import sqlite3
 # inneholde brukernes fulle navn og antallet kaffer de har smakt.
 
 
-def numberOfTasted():
+def story_two():
 
     # Kobler til databasen
     con = sqlite3.connect("test.db")
@@ -28,24 +28,30 @@ def numberOfTasted():
     cursor = con.cursor()
 
     # Definerer spørring
-    query = '''SELECT Navn, Smakinger
-                     FROM (SELECT COUNT(BrukerID) AS Smakinger, Kaffenavn, Brennerinavn
+    query = cursor.execute('''SELECT Fulltnavn, Smakinger
+                     FROM (SELECT COUNT(BrukerID) AS Smakinger, BrukerID, Kaffenavn, Brenneri
                          FROM Kaffesmaking
+                         WHERE Strftime('%Y', Dato) = '2022'
                          GROUP BY BrukerID)
                      JOIN
-                         (SELECT BrukerID AS ID, Navn
+                         (SELECT BrukerID AS ID, Fulltnavn
                          FROM Bruker)
                      ON
                      BrukerID = ID
                      ORDER BY Smakinger DESC
-                 ''',
+                 ''').fetchall()
     
-    # Utfører spørring og printer resultatet
-    resultat = cursor.execute(query)
-    print(resultat.fetchall())
-
     # Lukker tilkoblingen
     con.close()
+    print("Her er en sortert liste med brukere som har smakt flest antall unike kaffer i år: ")
+    for user in query:
+        print("Navn: " + user[0] + ", Unike kaffer: " + str(user[1]))
+    print()
 
-    return None
+    #return query
+
+#s = story_two()
+
+# Printer hver linje
+#print(s)
 

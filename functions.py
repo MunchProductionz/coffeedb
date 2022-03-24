@@ -18,7 +18,6 @@ def insert(table, values):
     return "'''INSERT INTO ? VALUES " + stringQuestions + ", " + stringValues + "'''"
 
 print()    
-print(insert('Kaffesmaking', ('Wow – en odyssé for smaksløkene: sitrusskall, melkesjokolade, aprikos!', 10, 'Vinterkaffe 2022', 'Jacobsen & Svart')))
 
 print()
 
@@ -38,6 +37,6 @@ def select(attributes, table, condition=None):
 
     return '"SELECT ' + stringAttributes + ' FROM ' + table + ' WHERE ' + condition + '"'
 
-print(select('*', 'Kaffesmaking', 'poeng = 10'))
-print(select(('Navn', 'Smaksnotat'), 'Kaffesmaking', 'poeng = 10'))
+#print(select('*', 'Kaffesmaking', 'poeng = 10'))
+#print(select(('Navn', 'Smaksnotat'), 'Kaffesmaking', 'poeng = 10'))
 print()
