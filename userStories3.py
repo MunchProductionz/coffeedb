@@ -2,9 +2,15 @@ import sqlite3
 
 # Brukerhistorie 3
 def story_three():
+    
+    # Kobler til databasen
     con = sqlite3.connect("test.db")
+
+    # Oppretter markør - Du bruker den til å kjøre queries
     cursor = con.cursor()
-    all_coffees = cursor.execute('''
+    
+    # Definerer spørring
+    query = '''
         SELECT
             Kaffe.Brennerinavn,
             Kaffesmaking.Kaffenavn,
@@ -17,12 +23,13 @@ def story_three():
             Kaffesmaking.Kaffenavn
         ORDER BY
             Gjennomsnitt_poeng/KiloprisNOK DESC
-    ''').fetchall()
+    '''
+    
+    all_coffees = cursor.execute(query).fetchall()
     con.close()        
     
-    return all_coffees
-
-s = story_three()
-
-for coffee in s:
-    print(coffee)
+    for coffee in all_coffees:
+        print(coffee)
+    print()
+    
+    

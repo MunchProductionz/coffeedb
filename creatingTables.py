@@ -8,7 +8,7 @@ cursor = con.cursor()
 
 # Definerer Bruker-tabellen
 bruker = '''CREATE TABLE IF NOT EXISTS Bruker(
-                    BrukerID INTEGER PRIMARY KEY,
+                    BrukerID INTEGER PRIMARY KEY AUTOINCREMENT,
                     Epostadresse TEXT UNIQUE,
                     Passord TEXT NOT NULL,
                     Fulltnavn TEXT NOT NULL

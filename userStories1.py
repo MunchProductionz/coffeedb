@@ -5,15 +5,18 @@ from insertingValues import reset
 from datetime import date
 
 
-def story_one():
+def story_one(email):
     con = sqlite3.connect("test.db")
     cursor = con.cursor()
+    if (not verify_user(email, cursor)):
+        return "Ingen bruker registert med denne epostadressen."
     
+    print("Du kan nå registrere en ny kaffesmaking.\n")
     roastery = get_roastery(cursor)
     coffee = get_coffee(roastery, cursor)
     points = get_points()
     note = input("Fyll inn din vurdering av kaffen: ")
-    userID = 1
+    userID = get_user_ID(email, cursor)
     today = date.today()
 
     cursor.execute('''INSERT INTO Kaffesmaking (Smaksnotat,Poeng,Dato,BrukerID,Kaffenavn,Brennerinavn) VALUES (?,?,?,?,?,?)''', ( note, points, today, userID, coffee, roastery))
@@ -22,21 +25,23 @@ def story_one():
     # print(cursor.execute("SELECT * FROM Kaffesmaking").fetchall())
 
     con.close()
+    
+    print("Din smaking av kaffen '" + coffee + "' fra brenneriet '" + roastery + "' er registrert med poengscore " + points + " og smaksnotat '" + note + "' er registrert.")
 
 def get_roastery(cursor):
     roastery = input("Skriv inn navn på brenneriet: ")
-    valid_input = check_roaster(roastery, cursor)
+    valid_input = verify_roaster(roastery, cursor)
     while (not valid_input):
         roastery = input("Det var ikke et registrert brenneri. Vennligst skriv inn et gydlig brenneri: ")
-        valid_input = check_roaster(roastery, cursor)
+        valid_input = verify_roaster(roastery, cursor)
     return roastery
 
 def get_coffee(roastery, cursor):
     coffee = input("Skriv inn navn på kaffen: ")
-    valid_input = check_coffee(roastery, coffee, cursor)
+    valid_input = verify_coffee(roastery, coffee, cursor)
     while (not valid_input):
         coffee = input("Det var ikke en registrert kaffe. Vennligst skriv inn et gydlig kaffenavn: ")
-        valid_input = check_coffee(roastery, coffee, cursor)
+        valid_input = verify_coffee(roastery, coffee, cursor)
     return coffee
 
 def get_points():
@@ -45,21 +50,32 @@ def get_points():
         points = input("Poengvurderingen må være et tall. Vennligst ranger kaffen fra 1 til 10: ")
     return points
 
-def check_user(epostadresse, fulltnavn):
-    con = sqlite3.connect("test.db")
-    cursor = con.cursor()
-    exists = cursor.execute("SELECT BrukerID FROM Bruker WHERE Epostadresse =:epostadresse AND Fulltnavn =:fulltnavn", {"epostadresse": epostadresse, "fulltnavn": fulltnavn})
+def get_user_ID(email, cursor):
+    query = '''
+    SELECT
+        BrukerID
+    FROM 
+        Bruker
+    WHERE
+        Epostadresse =:email
+    '''
+    
+    userID = cursor.execute(query, {"email": email}).fetchone()[0]
+    return userID
+    
+
+def verify_user(email, cursor):
+    exists = cursor.execute("SELECT BrukerID FROM Bruker WHERE Epostadresse =:epostadresse", {"epostadresse": email})
 
     boolean = False
 
     if exists.fetchone():
         boolean = True
 
-    con.close()
     return boolean
 
-def check_roaster(brenneri, cursor):
-    exists = cursor.execute("SELECT Navn FROM Brenneri WHERE Navn = ?", [brenneri])
+def verify_roaster(roastery, cursor):
+    exists = cursor.execute("SELECT Navn FROM Brenneri WHERE Navn = ?", [roastery])
 
     boolean = False
 
@@ -68,10 +84,10 @@ def check_roaster(brenneri, cursor):
         
     return boolean
 
-def check_coffee(brenneri, navn, cursor):
-    if (not check_roaster(brenneri, cursor)):
+def verify_coffee(roastery, name, cursor):
+    if (not verify_roaster(roastery, cursor)):
         return False
-    exists = cursor.execute("SELECT Brennerinavn, Navn FROM Kaffe WHERE Brennerinavn =:brennerinavn AND Navn =:navn", {"brennerinavn": brenneri, "navn": navn})
+    exists = cursor.execute("SELECT Brennerinavn, Navn FROM Kaffe WHERE Brennerinavn =:brennerinavn AND Navn =:navn", {"brennerinavn": roastery, "navn": name})
 
     boolean = False
 
@@ -80,4 +96,4 @@ def check_coffee(brenneri, navn, cursor):
     return boolean
 
 reset()
-story_one()
+#story_one("bruker1@mail.com")
