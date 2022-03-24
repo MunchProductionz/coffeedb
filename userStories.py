@@ -3,7 +3,7 @@ import sqlite3
 from userStories1 import story_one
 from userStories2 import story_two
 from userStories3 import story_three
-from userStories4 import search
+from userStories4 import story_four
 from userStories5 import unwashed
 
 from users import insert_user, matching_email_password, verify_email
@@ -126,7 +126,7 @@ def run_story(historie, epostadresse):
         story_three()
     elif (historie == '4'):
         word = input('Skriv ordet du ønsker å søke på: ')
-        search(word)
+        story_four(word)
     elif (historie == '5'):
         unwashed()
 

@@ -73,10 +73,10 @@ kaffesmaking = '''CREATE TABLE IF NOT EXISTS Kaffesmaking(
                     Dato DATE,
                     BrukerID INTEGER,
                     Kaffenavn TEXT,
-                    Brennerinavn TEXT,
+                    Brenneri TEXT,
                     FOREIGN KEY (BrukerID) REFERENCES Bruker(BrukerID),
                     FOREIGN KEY (Kaffenavn) REFERENCES Kaffe(Navn),
-                    FOREIGN KEY (Brennerinavn) REFERENCES Brenneri(Brennerinavn)
+                    FOREIGN KEY (Brenneri) REFERENCES Brenneri(Brennerinavn)
                 )'''
 
 # Definerer DyrkesAv-tabellen

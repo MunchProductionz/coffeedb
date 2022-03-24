@@ -19,7 +19,7 @@ def story_one(email):
     userID = get_user_ID(email, cursor)
     today = date.today()
 
-    cursor.execute('''INSERT INTO Kaffesmaking (Smaksnotat,Poeng,Dato,BrukerID,Kaffenavn,Brennerinavn) VALUES (?,?,?,?,?,?)''', ( note, points, today, userID, coffee, roastery))
+    cursor.execute('''INSERT INTO Kaffesmaking (Smaksnotat,Poeng,Dato,BrukerID,Kaffenavn,Brenneri) VALUES (?,?,?,?,?,?)''', ( note, points, today, userID, coffee, roastery))
     con.commit()
 
     print(cursor.execute("SELECT * FROM Kaffesmaking").fetchall())
@@ -95,7 +95,7 @@ def verify_coffee(roastery, name, cursor):
         boolean = True
     return boolean
 
-#buildTables()
-#reset()
+buildTables()
+reset()
 
 #story_one("bruker1@mail.com")

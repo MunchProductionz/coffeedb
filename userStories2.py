@@ -29,7 +29,7 @@ def story_two():
 
     # Definerer spørring
     query = cursor.execute('''SELECT Fulltnavn, Smakinger
-                     FROM (SELECT COUNT(BrukerID) AS Smakinger, BrukerID, Kaffenavn, Brennerinavn
+                     FROM (SELECT COUNT(BrukerID) AS Smakinger, BrukerID, Kaffenavn, Brenneri
                          FROM Kaffesmaking
                          WHERE Strftime('%Y', Dato) = '2022'
                          GROUP BY BrukerID)
