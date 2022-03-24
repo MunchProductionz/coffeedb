@@ -6,23 +6,23 @@ from userStories3 import story_three
 from userStories4 import search
 from userStories5 import unwashed
 
-from users import insert_user, isCorrectNameAndPassword, verify_email
+from users import insert_user, matching_email_password, verify_email
 
 def run():
     print('Velkommen til coffeeDB!')
     prompt = input("Skriv 'Ny bruker' for å opprette ny bruker, eller hva som helst annet for å logge inn: ")
     
     if prompt.lower() == "ny bruker":
-        epostadresse = new_user()
+        email = new_user()
     else:
-        epostadresse = login()
+        email = login()
         
     print("Du er nå logget inn i coffeDB! Velg et av alternativene under:\n")
     
     story = get_story()
     
     while (story != -1):
-        run_story(story, epostadresse)
+        run_story(story, email)
         
         x = input("Trykk enter for å avslutte, eller noe annet for å velge en ny brukerhistorie.")
         if (x == ''):
@@ -81,7 +81,7 @@ def login():
         
     print()
 
-    while (not isCorrectNameAndPassword(email, password)):
+    while (not matching_email_password(email, password)):
         print('Navnet eller passordet du har oppgitt er feil.')
         print('Vennligst prøv igjen.')
         print('Trykk "X" for å gå tilbake.')
