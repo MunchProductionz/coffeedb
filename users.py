@@ -4,7 +4,7 @@ import sqlite3
 def verify_email(email):
     
     # Kobler til databasen
-    con = sqlite3.connect("test.db")
+    con = sqlite3.connect("coffeeDB.db")
     cursor = con.cursor()
     
     # Henter alle resultater med gitt epostadresse
@@ -25,7 +25,7 @@ def verify_email(email):
 def matching_email_password(email, password):
     
     # Kobler til databasen
-    con = sqlite3.connect("test.db")
+    con = sqlite3.connect("coffeeDB.db")
     cursor = con.cursor()
 
     # Utfører spørring
@@ -46,7 +46,7 @@ def matching_email_password(email, password):
 def insert_user(email, password, user_name):
 
     # Kobler til databasen
-    con = sqlite3.connect("test.db")
+    con = sqlite3.connect("coffeeDB.db")
 
     # Oppretter markør
     cursor = con.cursor()

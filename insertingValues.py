@@ -19,7 +19,7 @@ from creatingTables import buildTables
 def reset():
 
     # Kobler til databasen og oppretter markør
-    con = sqlite3.connect("test.db")
+    con = sqlite3.connect("coffeeDB.db")
     cursor = con.cursor()
 
 

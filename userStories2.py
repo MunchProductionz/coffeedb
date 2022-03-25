@@ -3,7 +3,7 @@ import sqlite3
 def story_two():
 
     # Kobler til databasen
-    con = sqlite3.connect("test.db")
+    con = sqlite3.connect("coffeeDB.db")
 
     # Oppretter markør
     cursor = con.cursor()

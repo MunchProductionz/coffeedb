@@ -93,7 +93,7 @@ delAvParti = '''CREATE TABLE IF NOT EXISTS DelAvParti(
 def buildTables():
     
     # Kobler til databasen og oppretter markør
-    con = sqlite3.connect("test.db")
+    con = sqlite3.connect("coffeeDB.db")
     cursor = con.cursor()
 
     # Dropper alle tabeller

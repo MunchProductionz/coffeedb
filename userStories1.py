@@ -3,7 +3,7 @@ from datetime import date
 
 
 def story_one(email):
-    con = sqlite3.connect("test.db")
+    con = sqlite3.connect("coffeeDB.db")
     cursor = con.cursor()
     if (not verify_user(email, cursor)):
         return "Ingen bruker registert med denne epostadressen."
