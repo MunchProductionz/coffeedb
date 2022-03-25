@@ -21,7 +21,7 @@ def story_one(email):
     con.close()
     
     print()
-    print("Din smaking av kaffen '" + coffee + "' fra brenneriet '" + roastery + "' er registrert med poengscore " + points + " og smaksnotat '" + note + "' er registrert.\n")
+    print("Din smaking av kaffen '" + coffee + "' fra brenneriet '" + roastery + "' er registrert med poengscore " + points + " og smaksnotat '" + note + "'.\n")
     print()
 
 def get_roastery(cursor):
@@ -42,7 +42,7 @@ def get_coffee(roastery, cursor):
 
 def get_points():
     points = input("Ranger kaffen fra 1 til 10: ")
-    while (not points.isdigit()):
+    while ((not points.isdigit()) or int(points)<1 or int(points)>10):
         points = input("Poengvurderingen må være et tall. Vennligst ranger kaffen fra 1 til 10: ")
     return points
 
