@@ -21,7 +21,7 @@ def story_four(word):
                        '''), {"descr": "%"+word+"%"}).fetchall()
 
     # Printer resultatet
-    print(f'Her er en liste over brennerinavn og kaffenavn som inneholder ordet "' + word + '":')
+    print(f'Her er en liste over brennerinavn og kaffenavn som inneholder en beskrivelse med ordet "' + word + '":')
     for res in resultat:
         print("Brennerinavn: " + res[0] + ", Kaffenavn: " + str(res[1]))
     print()

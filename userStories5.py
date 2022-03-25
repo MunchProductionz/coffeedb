@@ -18,7 +18,7 @@ def story_five():
     resultat = cursor.execute(query)
     
     # Printer resultatet
-    print("Her er en liste over brennerinavn og kaffenavn fra Rwanda eller Colombia som ikke er vasket:")
+    print("Her er en liste over brennerinavn og kaffe fra Rwanda eller Colombia som ikke er vasket:")
     for res in resultat:
         print("Brennerinavn: " + res[0] + ", Kaffenavn: " + str(res[1]))
     print()
