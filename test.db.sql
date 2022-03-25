@@ -104,6 +104,7 @@ INSERT INTO "Kaffe" VALUES ('Trondheim Brenneri','Evergood','lys','2022-03-03','
 INSERT INTO "Kaffe" VALUES ('Jacobsen & Svart','Vinterkaffe 2022','lys','2022-01-20','En velsmakende og kompleks kaffe for mørketiden',600,4);
 INSERT INTO "Kaffesmaking" VALUES (1,'Grei kvalitet',3,'2022-01-02',1,'Nescafe','Bergen Brenneri');
 INSERT INTO "Kaffesmaking" VALUES (2,'Smakfulle bønner',6,'2022-02-03',2,'Espresso','Oslo Brenneri');
+INSERT INTO "Kaffesmaking" VALUES (2,'Gode bønner',4,'2022-02-03',2,'Espresso','Oslo Brenneri');
 INSERT INTO "Kaffesmaking" VALUES (3,'Ganske grei kvalitet',5,'2022-02-03',2,'Nescafe','Bergen Brenneri');
 INSERT INTO "Kaffesmaking" VALUES (4,'Bemerkelsesverdig smak',9,'2021-03-04',3,'Evergood','Trondheim Brenneri');
 INSERT INTO "Kaffesmaking" VALUES (5,'Wow - en odyssé for smaksløkene: sitrusskall, melkesjokolade, aprikos!',10,'2022-03-21',4,'Vinterkaffe 2022','Jacobsen & Svart');
