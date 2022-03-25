@@ -72,10 +72,10 @@ def reset():
     con.commit()
 
     # Kaffeparti
-    cursor.execute('''INSERT INTO Kaffeparti VALUES (1, 10, 'Bærtørket', 1)''')
-    cursor.execute('''INSERT INTO Kaffeparti VALUES (2, 20, 'Vasket', 2)''')
-    cursor.execute('''INSERT INTO Kaffeparti VALUES (3, 30, 'Plukket', 3)''')
-    cursor.execute('''INSERT INTO Kaffeparti VALUES (4, 8, 'Bærtørket', 4)''')
+    cursor.execute('''INSERT INTO Kaffeparti VALUES (1, 2020, 10, 'Bærtørket', 1)''')
+    cursor.execute('''INSERT INTO Kaffeparti VALUES (2, 2021, 20, 'Vasket', 2)''')
+    cursor.execute('''INSERT INTO Kaffeparti VALUES (3, 2022, 30, 'Plukket', 3)''')
+    cursor.execute('''INSERT INTO Kaffeparti VALUES (4, 2021, 8, 'Bærtørket', 4)''')
     con.commit()
 
     # Kaffe

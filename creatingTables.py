@@ -38,6 +38,7 @@ foredlingsmetode = '''CREATE TABLE IF NOT EXISTS Foredlingsmetode(
 # Definerer Kaffeparti-tabellen
 kaffeparti = '''CREATE TABLE IF NOT EXISTS Kaffeparti(
                     PartiID INTEGER PRIMARY KEY,
+                    Innhøstingsår YEAR,
                     KiloprisUSD INTEGER,
                     Foredlingsmetode TEXT NOT NULL,
                     GårdID INTEGER NOT NULL,
