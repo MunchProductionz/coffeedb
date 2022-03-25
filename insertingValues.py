@@ -9,7 +9,7 @@ from creatingTables import buildTables
 # Gård              4
 # Kaffebønne        2
 # Foredlingsmetode  2
-# Kaffeparti        4
+# Kaffeparti        5
 # Kaffe             7
 # Kaffesmaking      7
 # DyrkesAv          2
