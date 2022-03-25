@@ -52,7 +52,7 @@ def reset():
     con.commit()
 
     # Gård
-    cursor.execute('''INSERT INTO Gård VALUES (1, 'Sagmo Gård', '1000', 'Bergen', 'Norge')''')
+    cursor.execute('''INSERT INTO Gård VALUES (1, 'Sagmo Gård', '1000', 'Bergen', 'Colombia')''')
     cursor.execute('''INSERT INTO Gård VALUES (2, 'Storvik Gård' , '2000', 'Oslo', 'Norge')''')
     cursor.execute('''INSERT INTO Gård VALUES (3, 'Bø Gård', '3000', 'Trondheim', 'Rwanda')''')
     cursor.execute('''INSERT INTO Gård VALUES (4, 'Nombre de Dios', '1500', 'Santa Ana', 'El Salvador')''')
@@ -81,13 +81,14 @@ def reset():
     # Kaffe
     cursor.execute('''INSERT INTO Kaffe VALUES ('Bergen Brenneri', 'Nescafe', 'mørk', '2022-01-01', 'Helt ok', 100, 1)''')
     cursor.execute('''INSERT INTO Kaffe VALUES ('Oslo Brenneri', 'Espresso', 'middels', '2022-02-02', 'Middels god', 200, 2)''')
-    cursor.execute('''INSERT INTO Kaffe VALUES ('Trondheim Brenneri', 'Evergood', 'lys', '2022-03-03', 'Ganske god', 300, 3)''')
+    cursor.execute('''INSERT INTO Kaffe VALUES ('Trondheim Brenneri', 'Evergood', 'lys', '2022-03-03', 'Ganske god, med en floral smak', 300, 3)''')
     cursor.execute('''INSERT INTO Kaffe VALUES ('Jacobsen & Svart', 'Vinterkaffe 2022', 'lys', '2022-01-20', 'En velsmakende og kompleks kaffe for mørketiden', 600, 4)''')
     con.commit()
 
     # Kaffesmaking
     cursor.execute('''INSERT INTO Kaffesmaking (Smaksnotat,Poeng,Dato,BrukerID,Kaffenavn,Brenneri) VALUES ('Grei kvalitet', 3, '2022-01-02', 1, 'Nescafe', 'Bergen Brenneri')''')
     cursor.execute('''INSERT INTO Kaffesmaking (Smaksnotat,Poeng,Dato,BrukerID,Kaffenavn,Brenneri) VALUES ('Smakfulle bønner', 6, '2022-02-03', 2, 'Espresso', 'Oslo Brenneri')''')
+    cursor.execute('''INSERT INTO Kaffesmaking (Smaksnotat,Poeng,Dato,BrukerID,Kaffenavn,Brenneri) VALUES ('Ganske grei kvalitet', 5, '2022-02-03', 2, 'Nescafe', 'Bergen Brenneri')''')
     cursor.execute('''INSERT INTO Kaffesmaking (Smaksnotat,Poeng,Dato,BrukerID,Kaffenavn,Brenneri) VALUES ('Bemerkelsesverdig smak', 9, '2021-03-04', 3, 'Evergood', 'Trondheim Brenneri')''')
     cursor.execute('''INSERT INTO Kaffesmaking (Smaksnotat,Poeng,Dato,BrukerID,Kaffenavn,Brenneri) VALUES ('Wow - en odyssé for smaksløkene: sitrusskall, melkesjokolade, aprikos!', 10, '2022-03-21', 4, 'Vinterkaffe 2022', 'Jacobsen & Svart')''')
     con.commit()
